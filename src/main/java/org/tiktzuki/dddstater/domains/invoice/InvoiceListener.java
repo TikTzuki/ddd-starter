@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import org.tiktzuki.dddstater.domains.model.invoce.Invoice;
-import org.tiktzuki.dddstater.domains.model.invoce.InvoiceRepository;
-import org.tiktzuki.dddstater.domains.model.order.OrderShipped;
+import org.tiktzuki.dddstater.domains.invoice.model.Invoice;
+import org.tiktzuki.dddstater.domains.invoice.model.InvoiceRepository;
+import org.tiktzuki.dddstater.domains.order.model.OrderShipped;
 
 import javax.transaction.Transactional;
 

@@ -1,4 +1,4 @@
-package org.tiktzuki.dddstater.domains.model.user;
+package org.tiktzuki.dddstater.domains.user.model;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;

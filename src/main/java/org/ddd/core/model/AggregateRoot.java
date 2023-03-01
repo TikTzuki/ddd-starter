@@ -16,9 +16,6 @@ import java.util.List;
 public abstract class AggregateRoot<PK extends Serializable> extends AbstractEntity<PK> {
     private transient final @Transient List<Object> domainEvents = new ArrayList<>();
 
-    public AggregateRoot(PK id) {
-        this.setId(id);
-    }
 
     /**
      * Registers the given event object for publication on a call to a Spring Data repository's save methods.

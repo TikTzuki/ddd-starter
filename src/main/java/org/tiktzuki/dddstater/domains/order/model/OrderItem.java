@@ -1,14 +1,26 @@
-package org.tiktzuki.dddstater.domains.model.order;
+package org.tiktzuki.dddstater.domains.order.model;
 
+import lombok.*;
 import org.ddd.core.model.LocalEntity;
+import org.tiktzuki.dddstater.constant.Sequences;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderItem extends LocalEntity<Long> {
+
+    @Id
+    @SequenceGenerator(name = Sequences.ORDER_ITEM, sequenceName = Sequences.ORDER_ITEM, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Sequences.ORDER_ITEM)
+    private Long id;
+
     @ManyToOne
     private Order order;
     private String description;
@@ -16,17 +28,13 @@ public class OrderItem extends LocalEntity<Long> {
     private BigDecimal price;
     private BigDecimal subTotal;
 
-    OrderItem(Long id, Order order) {
-        super(id);
+    OrderItem(Order order) {
         this.order = Objects.requireNonNull(order);
         this.quantity = 0;
         this.price = BigDecimal.ZERO;
         recalculateSubTotal();
     }
 
-    public OrderItem() {
-        super(0L); // Fixme
-    }
 
     private void recalculateSubTotal() {
         BigDecimal oldSubTotal = this.subTotal;

@@ -1,4 +1,4 @@
-package org.tiktzuki.dddstater.domains.model.invoce;
+package org.tiktzuki.dddstater.domains.invoice.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

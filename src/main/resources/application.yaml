@@ -3,7 +3,7 @@ server:
     8089
 spring:
   datasource:
-    url: jdbc:postgresql://14.225.205.235:15432/rnb
+    url: jdbc:postgresql://127.0.0.1:5432/rnb
     username: root
     password: P@ssword789
   jpa:
@@ -12,10 +12,13 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc:
           lob:
-            non_contextual_creation: 'true'
+            non_contextual_creation: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
   liquibase:
     enabled: false
     change-log: classpath:db/liquibase-changelog.yaml
+  batch:
+    jdbc:
+      initialize-schema: always

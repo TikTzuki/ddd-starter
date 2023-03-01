@@ -1,12 +1,10 @@
-package org.tiktzuki.dddstater.domains.model.order;
+package org.tiktzuki.dddstater.domains.order.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.ddd.core.model.AggregateRoot;
+import org.tiktzuki.dddstater.constant.Sequences;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,15 @@ import java.util.List;
 @Table(name = "ord")
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Order extends AggregateRoot<Long> {
+
+    @Id
+    @SequenceGenerator(name = Sequences.ORDER, sequenceName = Sequences.ORDER, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Sequences.ORDER)
+    private Long id;
 
     private String shippingName;
     private String billingName;
@@ -23,17 +29,6 @@ public class Order extends AggregateRoot<Long> {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items = new ArrayList<>();
 
-    public Order() {
-        super(0L); // FIXME
-        // These setters are private and make sure the passed in parameters are valid:
-//        setCustomer(customer.getId());
-//        setShippingName(customer.getName());
-//        setShippingAddress(customer.getAddress());
-//        setBillingName(customer.getName());
-//        setBillingAddress(customer.getAddress());
-        nextFreeItemId = 1L;
-        recalculateTotals();
-    }
 
     private Long getNextFreeItemId() {
         return nextFreeItemId++;

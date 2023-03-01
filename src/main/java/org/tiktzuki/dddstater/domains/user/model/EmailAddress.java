@@ -1,4 +1,4 @@
-package org.tiktzuki.dddstater.domains.model.user;
+package org.tiktzuki.dddstater.domains.user.model;
 
 import org.ddd.core.model.ValueObject;
 

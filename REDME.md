@@ -65,7 +65,16 @@ Lý do:
 - Aggregate root đảm bảo tính toàn vẹn của business rule and data
 
 ![Aggregate.png](docs%2FAggregate.png)
+
 ![aggregate_rel.png](docs%2Faggregate_rel.png)
+
+Nên trỏ đến các aggregate khác theo ID và ID này là một value object, hướng dẫn:
+
+![Aggregate_Id_Aggreate.png](docs%2FAggregate_Id_Aggreate.png)
+
+1. Chọn kiểu dữ liệu được bọc lại làm ID: UUID, String hoặc Long
+2. Tạo một descriptor, descriptor biết biết cách chuyển đổi qua lại giữa kiểu raw và và kiểu bọc ngoài.
+3. Đăng ký kiểu dữ liệu mới này với hibernate
 
 ## Factories
 

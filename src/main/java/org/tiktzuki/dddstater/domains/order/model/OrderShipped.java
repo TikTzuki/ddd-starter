@@ -1,4 +1,4 @@
-package org.tiktzuki.dddstater.domains.model.order;
+package org.tiktzuki.dddstater.domains.order.model;
 
 import org.ddd.core.model.DomainEvent;
 
