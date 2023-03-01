@@ -19,10 +19,11 @@ public class InvoiceListener {
     @EventListener
     @Transactional
     public void onOrderShipped(OrderShipped event) {
-        log.info("received: {}", event);
+        log.info("--> invoice received event: {}", event);
         Invoice invoice = new Invoice();
-        invoice.setDescription("Simple invoice");
+        log.info("--> created invoice {}", invoice.getId());
+        invoice.setDescription("--> invoice created");
         invoiceRepository.save(invoice);
-        log.info("after save");
+        log.info("--> invoice saved");
     }
 }

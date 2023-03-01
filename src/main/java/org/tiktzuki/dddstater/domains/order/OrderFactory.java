@@ -11,6 +11,6 @@ public class OrderFactory {
     OrderRepository orderRepository;
 
     public Order createOrder() {
-        return new Order();
+        return orderRepository.save(new Order());
     }
 }
