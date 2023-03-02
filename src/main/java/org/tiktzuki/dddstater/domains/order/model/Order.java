@@ -48,7 +48,7 @@ public class Order extends AggregateRoot<Long> {
 
     public void ship() {
         log.info("--> prepare ship");
-        registerEvent(new OrderShipped(this.getId(), Instant.now()));
+        registerEvent(new OrderShipped(this.getId(), Instant.now().getEpochSecond()));
         log.info("--> shipped");
     }
 }

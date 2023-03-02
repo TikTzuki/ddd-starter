@@ -38,11 +38,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/customers*")
-                .hasRole("USER")
+                .antMatchers("/")
+                .authenticated()
                 .anyRequest()
                 .permitAll();
         http.oauth2Login()
+//                .defaultSuccessUrl("/")
                 .and()
                 .logout()
                 .addLogoutHandler(logoutHandler)

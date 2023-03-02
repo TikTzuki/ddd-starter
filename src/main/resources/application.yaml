@@ -2,8 +2,13 @@ server:
   port:
     8089
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   datasource:
-    url: jdbc:postgresql://10.20.1.32:5432/rnb
+    url: jdbc:postgresql://localhost:5432/rnb
     username: root
     password: P@ssword789
   jpa:
@@ -26,15 +31,33 @@ spring:
     oauth2:
       client:
         registration:
+#          google:
+#            client-id: 759254302934-64f86r6805m7n8hi87ge2fcb6rhe88n7.apps.googleusercontent.com
+#            client-secret: ${GOOGLE_CLIENT_SECRET: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}
+#            authorization-grant-type: authorization_code
+#            redirect-uri: ${GOOGLE_REDIRECT_URI:http://localhost:8080/login/oauth2/code/fnb}
+#            scope:
+#              - openid
+#              - email
+#              - profile
           keycloak:
             client-id: fnb
             client-secret: ${KEYCLOAK_CLIENT_SECRET:81e3fd9f-52ce-4549-8ea9-ae53e754da89}
             authorization-grant-type: authorization_code
-            redirect-uri: ${KEYCLOA_REDIRECT_URI:http://localhost:8182/login/oauth2/code/myclient-ac}
+            redirect-uri: ${KEYCLOAK_REDIRECT_URI:http://localhost:8080/login/oauth2/code/fnb}
             scope: openid
         provider:
+#          google:
+#            authorization-uri: ${GOOGLE_AUTHORIZATION_URI:https://accounts.google.com/o/oauth2/auth}
+#            token-uri: ${GOOGLE_TOKEN_URI:https://oauth2.googleapis.com/token}
+#            user-info-uri: ${GOOGLE_USERINFO_URI:https://www.googleapis.com/userinfo/v2/me}
+          #            jwk-set-uri: ${GOOGLE_JWT_SET_URI:http://localhost:8080/realms/fnb/protocol/openid-connect/certs}
           keycloak:
-            issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8180/auth/realms/fnb}
+            issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/fnb}
+            authorization-uri: ${KEYCLOAK_AUTHORIZATION_URI:http://localhost:8080/realms/fnb/protocol/openid-connect/auth}
+            token-uri: ${KEYCLOAK_TOKEN_URI:http://localhost:8080/realms/fnb/protocol/openid-connect/token}
+            user-info-uri: ${KEYCLOAK_USERINFO_URI:http://localhost:8080/realms/fnb/protocol/openid-connect/userinfo}
+            jwk-set-uri: ${KEYCLOAK_JWT_SET_URI:http://localhost:8080/realms/fnb/protocol/openid-connect/certs}
       resourceserver:
         jwt:
           issuer-uri: ${OAUTH2_ISSUER_URI:http://localhost:8080/realms/fnb}
