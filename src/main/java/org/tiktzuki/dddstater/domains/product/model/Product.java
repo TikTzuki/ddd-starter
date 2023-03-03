@@ -6,8 +6,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.ddd.core.model.AggregateRoot;
 import org.tiktzuki.dddstater.constant.Sequences;
+import org.tiktzuki.dddstater.domains.menu.model.MenuProductId;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -21,7 +23,15 @@ public class Product extends AggregateRoot<Long> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Sequences.PRODUCT)
     private Long id;
 
+    private Long categoryId;
+
     private String name;
 
     private String description;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductVariant> variants;
+
+    @Transient
+    private List<MenuProductId> menus;
 }
