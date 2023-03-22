@@ -1,7 +1,7 @@
 package org.tiktzuki.dddstater.domains.order.model;
 
 import lombok.*;
-import org.ddd.core.model.LocalEntity;
+import org.ddd.core.model.NodeEntity;
 import org.tiktzuki.dddstater.constant.Sequences;
 
 import javax.persistence.*;
@@ -14,31 +14,32 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class OrderItem extends LocalEntity<Long> {
-
+public class OrderItem extends NodeEntity<Long> {
     @Id
     @SequenceGenerator(name = Sequences.ORDER_ITEM, sequenceName = Sequences.ORDER_ITEM, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Sequences.ORDER_ITEM)
     private Long id;
-
+    private Long productId;
     @ManyToOne
     private Order order;
     private String description;
-    private int quantity;
-    private BigDecimal price;
-    private BigDecimal subTotal;
+    private Integer quantity;
+    @Convert(converter = PriceAttributeConverter.class)
+    private Price price;
+    @Convert(converter = PriceAttributeConverter.class)
+    private Price subTotal;
 
     OrderItem(Order order) {
         this.order = Objects.requireNonNull(order);
         this.quantity = 0;
-        this.price = BigDecimal.ZERO;
+        this.price = new Price(BigDecimal.ZERO);
         recalculateSubTotal();
     }
 
 
     private void recalculateSubTotal() {
-        BigDecimal oldSubTotal = this.subTotal;
-        this.subTotal = price.multiply(BigDecimal.valueOf(quantity));
+        Price oldSubTotal = this.subTotal;
+        this.subTotal = price.multiply(quantity);
         if (oldSubTotal != null && !oldSubTotal.equals(this.subTotal)) {
             this.order.recalculateTotals();
         }
@@ -52,7 +53,7 @@ public class OrderItem extends LocalEntity<Long> {
         recalculateSubTotal();
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Price price) {
         Objects.requireNonNull(price, "price must not be null");
         this.price = price;
         recalculateSubTotal();

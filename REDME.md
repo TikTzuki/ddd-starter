@@ -18,7 +18,7 @@ dùng, v.v.
 
 ## Domain object class diagram
 
-![DDD_Core_Model.png](docs%2FDDD_Core_Model.png)
+![Class_Diagram.png](docs%2FClass_Diagram.png)
 
 ## Value object
 
@@ -58,9 +58,9 @@ Lý do:
 
 - Aggregate làm tăng performance: mặc dù sử dụng lazy fetch có thể tốt hơn eager fetch, nhưng context of data access
 
-  luôn được duy trì cũng ảnh hưởng đến performance. Vì vậy một aggregate nhỏ khi bắt đầu load relationship sẽ không bao
+  luôn được duy trì cũng ảnh hưởng đến performance. Vì vậy một aggregate nhỏ khi tiếp tục load relationship sẽ không bao
 
-  giờ phình quá lớn.
+  giờ phình to.
 
 - Aggregate root đảm bảo tính toàn vẹn của business rule and data
 

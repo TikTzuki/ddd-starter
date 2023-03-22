@@ -1,8 +1,10 @@
 package org.tiktzuki.dddstater.domains.order.model;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.ddd.core.model.AggregateRoot;
 import org.tiktzuki.dddstater.constant.Sequences;
+import org.tiktzuki.dddstater.domains.product.model.Product;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -16,6 +18,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Slf4j
 public class Order extends AggregateRoot<Long> {
 
     @Id
@@ -25,29 +28,27 @@ public class Order extends AggregateRoot<Long> {
 
     private String shippingName;
     private String billingName;
-    private Long nextFreeItemId;
+    @Convert(converter = PriceAttributeConverter.class)
+    private Price total;
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items = new ArrayList<>();
 
-
-    private Long getNextFreeItemId() {
-        return nextFreeItemId++;
+    public void recalculateTotals() {
+        this.total = items.stream().map(OrderItem::getSubTotal).reduce(Price.ZERO, Price::add);
+        log.info("--> calculated: " + this.total.getPrice());
     }
 
-    void recalculateTotals() { // Package visibility to make the method accessible from OrderItem
-//        this.total = items.stream().map(OrderItem::getSubTotal).reduce(Money.ZERO, Money::add);
+    public OrderItem addItem(Product product) {
+        OrderItem item = new OrderItem(this);
+        item.setProductId(product.getId());
+        item.setDescription(product.getName());
+        this.items.add(item);
+        return item;
     }
-
-//    public OrderItem addItem(Product product) {
-//        OrderItem item = new OrderItem(getNextFreeItemId(), this);
-//        item.setProductId(product.getId());
-//        item.setDescription(product.getName());
-//        this.items.add(item);
-//        return item;
-//    }
 
     public void ship() {
-
-        registerEvent(new OrderShipped(this.getId(), Instant.now()));
+        log.info("--> prepare ship");
+        registerEvent(new OrderShipped(this.getId(), Instant.now().getEpochSecond()));
+        log.info("--> shipped");
     }
 }
