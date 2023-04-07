@@ -1,13 +1,11 @@
 package org.ddd.core.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.util.ProxyUtils;
 
 import javax.annotation.Nullable;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
-import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Optional;
 

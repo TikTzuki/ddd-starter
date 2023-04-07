@@ -19,11 +19,11 @@ ___
 
 ## 1. Model-Driven Design
 
-![model-drven-design-patterns.png](model-drven-design-patterns.png)
+![model-drven-design-patterns.png](https://bnz07pap001files.storage.live.com/y4mQMB1ud0alGqML9o1tg8b1LUF5VTRrQ3wJZ6aUZr6p7s44yYdIdsxlkXWoc8GfJq53X64hg1eyR4XZpAy0zMu-BVE5wRhvsS6msH087k0nCXwlijkDA7hXAC7-PrGZSI87LbVO3tQOQxoqxBmGw-MYwqw5sEne2twMhyWr11GVCUCSe2klh3-cQBOBb-UmMp0?width=1075&height=712&cropmode=none)
 
 ### i. Layered Architecture
 
-![ddd-layers.png](ddd-layers.png)
+![ddd-layers.png](https://bnz07pap001files.storage.live.com/y4mt97Jygv9Fg9U3ovs3ShCxoah6FtsSHCEJftQjFQ3nhS9Po7UZjElyGP-rIiHgWaJII55kb7UCKpr1E-q_OHfkUgyGIcdvrmdHfIOjgLPcUtzxHSFyPtmaCMcIl29l1BEieW1NMofe0p7iLyK5HPmYtK4xYAriZfWs8tZLgykPKFNNGetMGCg6kEffxMD7mue?width=884&height=511&cropmode=none)
 
 ### ii. Entities
 
@@ -125,13 +125,13 @@ public class Person {
 - Value object không phải DTO , DTO là kỹ thuật truyền dữ liệu,
 - Không thay đổi trạng thái của value object mà nên tạo ra 1 instance mới.
 
-![Entity_And_Value_Object.png](Entity_And_Value_Object.png)
+![Entity_And_Value_Object.png](https://bnz07pap001files.storage.live.com/y4mMHgGULiFvy2nCBNUy32wunOvxnTW-Lf85k6gJxrHhdKAhIpjToeI-zKFVhILWvfNb0Oar1SMkCYPT-Cj3_8NH9hQA-chg2Co7umsuE__dW7CbY6KZB180O9n89qfUtRYHzuvXKmF-Jw8RntxuY9zQitFvJK38QtknFDHuiIxk8rx_KKFHhqkSTrI9VaDc4Lv?width=1056&height=583&cropmode=none)
 
 ### iv. Aggregates
 
 ❓ Aggreate là một nhóm các entities và value objects có liên quan chặt chẽ với nhau
 
-![Aggregate.png](Aggregate.png)
+![Aggregate.png](https://bnz07pap001files.storage.live.com/y4mJ3FmzDqSDcAOZYfaQl0P30011McoVLPpp26vXJp8ch6hRKJCjuGZOXs-wahv1iEZ8YAAoBen_59YCtIpnGfLuAqMQlXRrSbDnVgcMEWzWsOyCFEZLO7LaIlJzBk1o5Jw6GphC1pFP1hI6DJDRhYQUR0TOh_ks-9kjrpUVxitZbXv5QBBfn1k1NBNTZpoVWu5?width=1118&height=652&cropmode=none)
 
 - Aggreate luôn luôn có trạng thái nhất quán
 - Đảm bảo tính toàn vẹn của business rule và dữ liệu.
@@ -147,9 +147,9 @@ public class Person {
 - Các tham chiếu tạm thời đến các entity nội bộ có thể được sử dụng chỉ trong một thao tác.
 - Aggreate root chịu trách nhiệm thực thi các thay đổi trạng thái lên các entity, object value bên trong.
 
-![aggregate_rel.png](aggregate_rel.png)
+![aggregate_rel.png](https://bnz07pap001files.storage.live.com/y4mh6NaGKRvmtcwpVl5T00ECySRSd78feRmb371bQttZNGwor4rM1NAk1YRnyLy6RixgASoGBQctanug1LR-bfHhBOpPWC9Exeoxc-i6oi0xyJx1HSFBjMIqLzaRVg6Qc_trztCAdR6LnIxrRI_yx9rq9Fy0hBX13jXAlbfF8F_CEKykb6DWpbPL7YnsW2EYIyh?width=574&height=483&cropmode=none)
 
-![Aggregate_Id_Aggreate.png](Aggregate_Id_Aggreate.png)
+![Aggregate_Id_Aggreate.png](https://bnz07pap001files.storage.live.com/y4mKaJMcbeO9md8jTLLKwVhULnKsNldzPFpocUgDfwNRHeuQ-sNAKEogg2G7NYlNnSdXuqazs0P1x9TwRq2LnVzGJ3X6noK14uCisq1Jl80x5AkoiNN-_oXdTTMGDiy-r9Z-ZcwQybU9oIRWnP8Wx3iY_LMwTzMPjDP5w1lkuCMTQJ8MCyaJvCNTA47TRzaMi9D?width=568&height=176&cropmode=none)
 
 ```java
 
@@ -208,7 +208,7 @@ foo.bar.domain.model.valueobjects
 
 ### vii. Factories
 
-![FactoryMethod.png](FactoryMethod.png)
+![FactoryMethod.png](https://bnz07pap001files.storage.live.com/y4mKrAwwzhF9O_cm6Ho93zg9RYqgNIULyY-ih3nGpBBDmIeAZn23MutQY0RgXjzppE-S7YHDghSAys8Q3s78Xp2EC7nKR2eq7Qv3pzEE9rO_fW8chXErX13mbTgWKe_uhbhUqYdzjvzKJE8LSL2sZSf5qGqO9XV8JZQizD5llkRaW0nd-Mp5BUn1NE6hMEaI-td?width=742&height=421&cropmode=none)
 
 ❓ Khi các entity và aggregate quá phức tạo để tạo một instance thông qua constructor thì cần sử dụng factory pattern.
 
@@ -220,12 +220,12 @@ foo.bar.domain.model.valueobjects
 Các domain object sẽ không phải xử lý logic infrastructure mà sẽ chỉ lấy chúng từ repository và model sẽ đạt được sự rõ
 ràng và tập trung vào nghiệp vụ.
 
-✅ 
+✅
 - Để viết các sql phức tạp, sử dụng `Specifications` hoặc `QueryDSL`
 
 Sử dụng kết hợp Factory và Repository
 
-![FactoryAndRepository.png](FactoryAndRepository.png)
+![FactoryAndRepository.png](https://bnz07pap001files.storage.live.com/y4mr3Sa7FiVwxqCUDarzn-qiCx17I1iU1xHi76jxwyC7_DYb7ClCYG48-tU5qUdoiyKn0z_YOewbhZyKnHpbg8MC-uBDuXlQ-Gv3Jzal60nujWEvwm2M1PwS3PdiJHjZuHokRUFa2zkl0mbgGekWhQ3oWqR-AGSTbPclCzcPU10T7xP8LZ9y8oIIbDzsZwjVnwk?width=1214&height=879&cropmode=none)
 
 ___
 
