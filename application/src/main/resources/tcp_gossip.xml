@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="urn:org:jgroups"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/jgroups.xsd">
+    <TCP bind_port="7800"
+         bind_addr="${jgroups.bind_addr:127.0.0.1}"
+         recv_buf_size="5M"
+         send_buf_size="5M"
+         max_bundle_size="64K"
+         enable_diagnostics="false"
+         thread_pool.enabled="true"
+         thread_pool.min_threads="1"
+         thread_pool.max_threads="10"
+         thread_pool.keep_alive_time="5000"
+    />
+
+    <TCPGOSSIP initial_hosts="${jgroups.gossip.initial_hosts:127.0.0.1[7800]}"
+    />
+
+    <MERGE3 max_interval="30000"
+            min_interval="10000"/>
+
+    <FD_SOCK/>
+    <FD_ALL/>
+    <VERIFY_SUSPECT timeout="1500"/>
+    <pbcast.NAKACK2 xmit_interval="500"
+                    xmit_table_num_rows="100"
+                    xmit_table_msgs_per_row="1000"
+                    xmit_table_max_compaction_time="30000"
+                    use_mcast_xmit="false"
+                    discard_delivered_msgs="true"/>
+    <UNICAST3 xmit_interval="500"
+              xmit_table_num_rows="100"
+              xmit_table_msgs_per_row="1000"
+              xmit_table_max_compaction_time="30000"/>
+    <pbcast.STABLE stability_delay="1000" desired_avg_gossip="50000"
+                   max_bytes="400000"/>
+    <pbcast.GMS print_local_addr="true" join_timeout="3000"
+                view_bundling="true"/>
+    <UFC max_credits="2000000" min_threshold="0.4"/>
+    <MFC max_credits="2000000" min_threshold="0.4"/>
+    <FRAG2 frag_size="60000"/>
+</config>

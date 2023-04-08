@@ -1,3 +1,3 @@
-rootProject.name = 'ddd-stater'
+rootProject.name = 'ddd-starter'
 
-include 'core', 'examples', 'application', "dto", "domain", "infrastructure"
+include 'core', 'application', "dto", "domain", "infrastructure"
