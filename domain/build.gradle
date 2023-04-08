@@ -1,0 +1,6 @@
+dependencies {
+    implementation "org.javamoney:moneta:$monetaVersion"
+    implementation project(":core")
+    implementation project(":dto")
+    implementation project(":infrastructure")
+}

@@ -1,5 +1,0 @@
-logging:
-  level:
-    com.zaxxer:
-      hikari: trace
-      hikari.HikariConfig: DEBUG

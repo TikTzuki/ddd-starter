@@ -22,48 +22,81 @@ repositories {
     jcenter()
 }
 
+
 ext {
-    axonVersion = "4.7.3"
+    axonVersion = "4.7.0"
+    lombokVersion = "1.18.26"
+    monetaVersion = "1.4.2"
+    keycloakVersion = "19.0.3"
 }
 
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+    dependencies {
+        implementation "com.vladmihalcea:hibernate-types-60:2.21.1"
+        implementation "io.temporal:temporal-sdk:1.19.1"
+        implementation "org.springdoc:springdoc-openapi-ui:1.6.14"
+
+        implementation "org.springframework.boot:spring-boot-starter-actuator"
+        implementation "org.springframework.boot:spring-boot-starter-amqp"
+        implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+
+        implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+        implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
+        implementation "org.springframework.boot:spring-boot-starter-security"
+        implementation "org.keycloak:keycloak-admin-client:${keycloakVersion}"
+
+        implementation "org.springframework.boot:spring-boot-starter-validation"
+        implementation "org.springframework.boot:spring-boot-starter-web"
+        implementation "org.springframework.boot:spring-boot-starter-webflux"
+        implementation "org.springframework.boot:spring-boot-starter-websocket"
+//        implementation "io.micrometer:micrometer-tracing-bridge-brave"
+//        implementation "io.zipkin.reporter2:zipkin-reporter-brave"
+        implementation "org.liquibase:liquibase-core"
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+        implementation "org.jetbrains.kotlin:kotlin-reflect"
+        implementation "io.github.microutils:kotlin-logging-jvm:2.0.11"
+
+        implementation "org.axonframework:axon-spring-boot-autoconfigure:$axonVersion"
+        implementation "org.axonframework.extensions.jgroups:axon-jgroups-spring-boot-starter:${axonVersion}"
+
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+        runtimeOnly "io.micrometer:micrometer-registry-prometheus"
+        runtimeOnly "org.postgresql:postgresql"
+
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testImplementation "org.axonframework:axon-test:$axonVersion"
+        testImplementation "org.springframework.boot:spring-boot-starter-test"
+        testImplementation "io.projectreactor:reactor-test"
+        testImplementation "org.springframework.amqp:spring-rabbit-test"
+        testImplementation "org.springframework.security:spring-security-test"
+        testImplementation "org.mockito:mockito-core:2.19.0"
+        testImplementation "org.amshove.kluent:kluent:1.40"
+        testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
+    }
+}
+
+
 dependencies {
-    implementation 'com.vladmihalcea:hibernate-types-60:2.21.1'
-    implementation 'io.temporal:temporal-sdk:1.19.1'
-    implementation "org.springdoc:springdoc-openapi-ui:1.6.14"
-
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-amqp'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
-    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
-    implementation 'org.liquibase:liquibase-core'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation "org.jetbrains.kotlin:kotlin-reflect"
-    implementation "io.github.microutils:kotlin-logging-jvm:2.0.11"
-    implementation "org.axonframework:axon-core:$axonVersion"
-    implementation "org.axonframework:axon-spring:$axonVersion"
-    implementation "org.axonframework:axon-spring-boot-autoconfigure:$axonVersion"
-    implementation "org.axonframework:axon-amqp:$axonVersion"
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-    runtimeOnly 'org.postgresql:postgresql'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation "org.axonframework:axon-test:$axonVersion"
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.projectreactor:reactor-test'
-    testImplementation 'org.springframework.amqp:spring-rabbit-test'
-    testImplementation 'org.springframework.security:spring-security-test'
-    testImplementation "org.mockito:mockito-core:2.19.0"
-    testImplementation "org.amshove.kluent:kluent:1.40"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
-
+    implementation project(":application")
 }
 
 test {

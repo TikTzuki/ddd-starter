@@ -1,1 +1,3 @@
 rootProject.name = 'ddd-stater'
+
+include 'core', 'examples', 'application', "dto", "domain", "infrastructure"

@@ -1,0 +1,11 @@
+logging:
+  level:
+    com.zaxxer:
+      hikari: trace
+      hikari.HikariConfig: DEBUG
+    org.axonframework: DEBUG
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
