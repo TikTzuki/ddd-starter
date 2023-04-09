@@ -1,6 +1,7 @@
 package org.dyson.dddstarter.branch.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.dyson.core.model.AggregateRoot;
 import org.dyson.dddstarter.constant.Sequences;
 
@@ -9,6 +10,7 @@ import jakarta.persistence.*;
 @Entity
 @Table
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class StoreBranch extends AggregateRoot<Long> {
 
     @Id
