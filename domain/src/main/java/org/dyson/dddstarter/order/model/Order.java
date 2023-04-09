@@ -2,6 +2,11 @@ package org.dyson.dddstarter.order.model;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.modelling.command.AggregateIdentifier;
+import static org.axonframework.modelling.command.AggregateLifecycle.apply;
+import org.axonframework.modelling.command.AggregateMember;
+import org.axonframework.spring.stereotype.Aggregate;
 import org.dyson.core.model.AggregateRoot;
 import org.dyson.dddstarter.constant.Sequences;
 import org.dyson.dddstarter.product.model.Product;
@@ -13,24 +18,26 @@ import java.util.List;
 
 @Entity
 @Table(name = "ord")
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
-@RequiredArgsConstructor
 @Slf4j
-public class Order extends AggregateRoot<Long> {
+@Aggregate
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Order {
 
     @Id
-    @SequenceGenerator(name = Sequences.ORDER, sequenceName = Sequences.ORDER, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Sequences.ORDER)
+//    @SequenceGenerator(name = Sequences.ORDER, sequenceName = Sequences.ORDER, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @AggregateIdentifier
     private Long id;
 
     private String shippingName;
     private String billingName;
     @Convert(converter = PriceAttributeConverter.class)
     private Price total;
+
     @OneToMany(mappedBy = "order")
+    @AggregateMember
     private List<OrderItem> items = new ArrayList<>();
 
     public void recalculateTotals() {
@@ -48,7 +55,7 @@ public class Order extends AggregateRoot<Long> {
 
     public void ship() {
         log.info("--> prepare ship");
-        registerEvent(new OrderShipped(this.getId(), Instant.now().getEpochSecond()));
+        apply(new OrderShipped(this.getId(), Instant.now().getEpochSecond()));
         log.info("--> shipped");
     }
 }

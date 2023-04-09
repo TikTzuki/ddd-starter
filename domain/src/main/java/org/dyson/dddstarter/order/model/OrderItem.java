@@ -1,6 +1,7 @@
 package org.dyson.dddstarter.order.model;
 
 import lombok.*;
+import org.axonframework.modelling.command.EntityId;
 import org.dyson.core.model.NodeEntity;
 import org.dyson.dddstarter.constant.Sequences;
 import org.dyson.dddstarter.order.model.PriceAttributeConverter;
@@ -16,8 +17,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class OrderItem extends NodeEntity<Long> {
     @Id
-    @SequenceGenerator(name = Sequences.ORDER_ITEM, sequenceName = Sequences.ORDER_ITEM, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Sequences.ORDER_ITEM)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @EntityId
     private Long id;
     private Long productId;
     @ManyToOne

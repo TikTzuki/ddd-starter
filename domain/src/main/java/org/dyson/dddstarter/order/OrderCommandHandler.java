@@ -22,6 +22,6 @@ public class OrderCommandHandler {
         order.recalculateTotals();
         order.ship();
         orderRepository.save(order);
-        return "1";
+        return order.getId();
     }
 }
