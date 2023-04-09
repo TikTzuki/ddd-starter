@@ -51,3 +51,6 @@ spring:
         jwt:
           issuer-uri: ${KEYCLOAK_ISSUER_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb}
           jwk-set-uri: ${OAUTH2_JWK_SET_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb/protocol/openid-connect/certs}
+keycloak-client:
+  username: ${KEYCLOAK_CLIENT_USERNAME:umeepay_admin}
+  password: ${KEYCLOAK_CLIENT_PASSWORD:Aqswde123@@}
