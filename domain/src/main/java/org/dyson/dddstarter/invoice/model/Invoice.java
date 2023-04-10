@@ -1,10 +1,9 @@
 package org.dyson.dddstarter.invoice.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.dyson.core.model.AggregateRoot;
 import org.dyson.dddstarter.constant.Sequences;
-
-import jakarta.persistence.*;
 
 @Table(name = "invoice")
 @Entity

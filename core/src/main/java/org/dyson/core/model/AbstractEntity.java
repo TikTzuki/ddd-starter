@@ -1,6 +1,8 @@
 package org.dyson.core.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.util.ProxyUtils;

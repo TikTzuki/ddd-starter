@@ -221,6 +221,7 @@ Các domain object sẽ không phải xử lý logic infrastructure mà sẽ ch�
 ràng và tập trung vào nghiệp vụ.
 
 ✅
+
 - Để viết các sql phức tạp, sử dụng `Specifications` hoặc `QueryDSL`
 
 Sử dụng kết hợp Factory và Repository

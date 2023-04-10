@@ -1,11 +1,10 @@
 package org.dyson.dddstarter.order.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.axonframework.modelling.command.EntityId;
 import org.dyson.core.model.NodeEntity;
-import org.dyson.dddstarter.constant.Sequences;
-import org.dyson.dddstarter.order.model.PriceAttributeConverter;
-import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 

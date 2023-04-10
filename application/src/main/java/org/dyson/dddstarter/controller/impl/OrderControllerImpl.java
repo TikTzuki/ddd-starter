@@ -7,9 +7,9 @@ import org.dyson.dddstarter.CreateOrderCommand;
 import org.dyson.dddstarter.controller.OrderController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class OrderControllerImpl implements OrderController {

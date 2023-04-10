@@ -1,11 +1,10 @@
 package org.dyson.dddstarter.user.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dyson.core.model.AggregateRoot;
 import org.dyson.dddstarter.constant.Sequences;
-
-import jakarta.persistence.*;
 
 @Entity
 @Table(name = "usr")

@@ -1,20 +1,20 @@
 package org.dyson.dddstarter.order.model;
 
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
-import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.dyson.core.model.AggregateRoot;
-import org.dyson.dddstarter.constant.Sequences;
 import org.dyson.dddstarter.product.model.Product;
 
-import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Entity
 @Table(name = "ord")

@@ -1,9 +1,10 @@
 logging:
   level:
-#    com.zaxxer:
-#      hikari: trace
-#      hikari.HikariConfig: DEBUG
+    com.zaxxer:
+      hikari: trace
+      hikari.HikariConfig: DEBUG
     org.axonframework: debug
+    org.springframework.security: debug
 spring:
   jpa:
     hibernate:

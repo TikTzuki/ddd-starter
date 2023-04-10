@@ -1,5 +1,6 @@
 package org.dyson.dddstarter.product.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,6 @@ import org.dyson.core.model.AggregateRoot;
 import org.dyson.dddstarter.constant.Sequences;
 import org.dyson.dddstarter.menu.model.MenuProductId;
 
-import jakarta.persistence.*;
 import java.util.List;
 
 @Entity

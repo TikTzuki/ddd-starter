@@ -1,10 +1,9 @@
 package org.dyson.dddstarter.menu.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dyson.core.model.NodeEntity;
-
-import jakarta.persistence.*;
 
 @Entity
 @Table

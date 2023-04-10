@@ -2,8 +2,8 @@ package org.dyson.dddstarter.order;
 
 import lombok.AllArgsConstructor;
 import org.dyson.dddstarter.order.model.Order;
-import org.springframework.stereotype.Component;
 import org.dyson.dddstarter.order.model.OrderRepository;
+import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor

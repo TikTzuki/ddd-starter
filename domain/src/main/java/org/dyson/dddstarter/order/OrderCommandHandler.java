@@ -3,6 +3,7 @@ package org.dyson.dddstarter.order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.dyson.dddstarter.CreateOrderCommand;
 import org.dyson.dddstarter.order.model.Order;
 import org.dyson.dddstarter.order.model.OrderRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class OrderCommandHandler {
     private final OrderFactory orderFactory;
     private final OrderRepository orderRepository;
+    private final CommandGateway commandGateway;
 
     @CommandHandler
     public Object handle(CreateOrderCommand command) {

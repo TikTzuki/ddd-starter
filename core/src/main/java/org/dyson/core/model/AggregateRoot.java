@@ -1,6 +1,7 @@
 package org.dyson.core.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
 import org.springframework.util.Assert;
@@ -18,6 +19,7 @@ public abstract class AggregateRoot<PK extends Serializable> extends AbstractEnt
 
     /**
      * Registers the given event object for publication on a call to a Spring Data repository's save methods.
+     *
      * @param event must not be {@literal null}.
      * @return the event that has been added.
      */
