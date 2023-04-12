@@ -1,12 +1,13 @@
 logging:
   level:
     com.zaxxer:
-      hikari: trace
-      hikari.HikariConfig: DEBUG
+      hikari: debug
+      hikari.HikariConfig: debug
     org.axonframework: debug
     org.springframework.security: debug
+    org.dyson.dddstarter: debug
 spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+#    show-sql: true

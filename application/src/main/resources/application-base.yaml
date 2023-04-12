@@ -1,12 +1,14 @@
 server:
-  port: 8080
+  port: 8081
+  error:
+    include-exception: true
+    include-stacktrace: always
 axon:
   axonserver:
     enabled: false
   distributed:
     enabled: true
 spring:
-
   datasource:
     hikari:
       pool-name: DDD-HikariPool
@@ -26,10 +28,7 @@ spring:
           lob:
             non_contextual_creation: true
     hibernate:
-      ddl-auto: update
-  liquibase:
-    enabled: false
-    change-log: classpath:db/liquibase-changelog.yaml
+      ddl-auto: create
   batch:
     jdbc:
       initialize-schema: always

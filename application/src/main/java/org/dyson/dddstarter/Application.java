@@ -20,8 +20,7 @@ public class Application implements CommandLineRunner {
 
     @PostConstruct
     private void init() {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        System.out.println("Spring boot application running in UTC timezone :" + LocalDateTime.now());
+
     }
 
     @Override

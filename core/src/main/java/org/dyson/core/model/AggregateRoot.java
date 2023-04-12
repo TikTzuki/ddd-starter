@@ -23,7 +23,7 @@ public abstract class AggregateRoot<PK extends Serializable> extends AbstractEnt
      * @param event must not be {@literal null}.
      * @return the event that has been added.
      */
-    protected <T> T registerEvent(T event) {
+    protected <T> T apply(T event) {
         Assert.notNull(event, "Domain event must not be null");
         this.domainEvents.add(event);
         return event;
@@ -47,14 +47,14 @@ public abstract class AggregateRoot<PK extends Serializable> extends AbstractEnt
         this.domainEvents.clear();
     }
 
-    protected final AggregateRoot<PK> andEventsFrom(AggregateRoot<PK> aggregate) {
+    protected final AggregateRoot<PK> andApplyFrom(AggregateRoot<PK> aggregate) {
         Assert.notNull(aggregate, "Aggregate must not be null");
         this.domainEvents.addAll(aggregate.domainEvents());
         return this;
     }
 
-    protected AggregateRoot<PK> andEvent(Object event) {
-        registerEvent(event);
+    protected AggregateRoot<PK> andApply(Object event) {
+        apply(event);
         return this;
     }
 }

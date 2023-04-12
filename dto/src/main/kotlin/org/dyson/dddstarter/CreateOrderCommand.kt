@@ -1,5 +1,6 @@
 package org.dyson.dddstarter
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.math.BigDecimal
 
 data class CreateOrderCommand(

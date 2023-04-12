@@ -1,17 +1,20 @@
 axon:
+  amqp:
+    exchange: "events"
   distributed:
-    #    load-factor: 100
+    load-factor: 100
     jgroups:
-      #      bind-addr: GLOBAL
-      #      bind-port: 7800
-      #      cluster-name: Axon
+      bind-addr: GLOBAL
+      bind-port: 7800
+      cluster-name: DDD-Application
       configuration-file: tcp_gossip.xml
-#      gossip:
-#        hosts: localhost[12001]
-#        auto-start: true
+      gossip:
+        hosts: 192.168.1.5[7800],192.168.1.5[7801]
+        auto-start: true
 spring:
   profiles:
     group:
+      default: default, base
       dev: dev, base
       uat: uat, base
       prod: prod, base
@@ -33,9 +36,8 @@ spring:
             client-id: ${KEYCLOAK_CLIENT_ID:fnb}
             client-secret: ${KEYCLOAK_CLIENT_SECRET:IKlnaeiLvnBypccc1SFoVbDW0TSq2ivr}
             authorization-grant-type: authorization_code
-            redirect-uri: ${KEYCLOAK_REDIRECT_URI:http://localhost:8080/login/oauth2/code/fnb}
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
             scope:
-              - openid
               - profile
               - email
         provider:
@@ -50,7 +52,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${KEYCLOAK_ISSUER_URI:https://keycloak.tiktzuki.com/realms/fnb}
-          jwk-set-uri: ${OAUTH2_JWK_SET_URI:https://keycloak.tiktzuki.com/realms/fnb/protocol/openid-connect/certs}
+          jwk-set-uri: ${KEYCLOAK_JWT_SET_URI:https://keycloak.tiktzuki.com/realms/fnb/protocol/openid-connect/certs}
 keycloak-client:
   username: ${KEYCLOAK_CLIENT_USERNAME:umeepay_admin}
   password: ${KEYCLOAK_CLIENT_PASSWORD:Aqswde123@@}

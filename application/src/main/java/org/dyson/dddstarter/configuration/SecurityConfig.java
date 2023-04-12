@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -95,9 +96,9 @@ public class SecurityConfig {
                 .requestMatchers("/", "/api-docs/**", "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated();
         http.oauth2ResourceServer()
-                .jwt()
-                .jwtAuthenticationConverter(jwtConverter());
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .jwt();
+//                .jwtAuthenticationConverter(jwtConverter());
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.oauth2Login(Customizer.withDefaults());
         http.oauth2Client();
         return http.build();
