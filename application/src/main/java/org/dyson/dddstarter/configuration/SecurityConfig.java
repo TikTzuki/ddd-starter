@@ -58,8 +58,8 @@ public class SecurityConfig {
                 log.info("----------> conver {}", jwt.toString());
                 System.out.println("-----------------> ");
                 Collection<GrantedAuthority> authorities = Stream.concat(
-                        jwtGrantedAuthoritiesConverter.convert(jwt).stream(),
-                        extractResourceRoles(jwt).stream()).collect(Collectors.toSet());
+                    jwtGrantedAuthoritiesConverter.convert(jwt).stream(),
+                    extractResourceRoles(jwt).stream()).collect(Collectors.toSet());
                 return new JwtAuthenticationToken(jwt, authorities);
             }
 
@@ -76,13 +76,13 @@ public class SecurityConfig {
                 Map<String, Object> resource;
                 Collection<String> resourceRoles;
                 if (resourceAccess == null
-                        || (resource = (Map<String, Object>) resourceAccess.get("account")) == null
-                        || (resourceRoles = (Collection<String>) resource.get("roles")) == null) {
+                    || (resource = (Map<String, Object>) resourceAccess.get("account")) == null
+                    || (resourceRoles = (Collection<String>) resource.get("roles")) == null) {
                     return Set.of();
                 }
                 return resourceRoles.stream()
-                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                        .collect(Collectors.toSet());
+                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                    .collect(Collectors.toSet());
             }
         };
     }
@@ -90,13 +90,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/test/anonymous", "/test/anonymous/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/test/admin", "/test/admin/**").hasRole(ADMIN)
-                .requestMatchers(HttpMethod.GET, "/test/user").hasAnyRole(ADMIN, USER)
-                .requestMatchers("/", "/api-docs/**", "/swagger-ui/**").permitAll()
-                .anyRequest().authenticated();
+            .requestMatchers(HttpMethod.GET, "/test/anonymous", "/test/anonymous/**").permitAll()
+            .requestMatchers("/", "/api-docs/**", "/swagger-ui/**").permitAll()
+            .requestMatchers("/orders/**").permitAll()
+            .anyRequest().authenticated();
         http.oauth2ResourceServer()
-                .jwt();
+            .jwt();
 //                .jwtAuthenticationConverter(jwtConverter());
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.oauth2Login(Customizer.withDefaults());

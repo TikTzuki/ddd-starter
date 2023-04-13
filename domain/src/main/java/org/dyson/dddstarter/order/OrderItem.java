@@ -1,8 +1,7 @@
-package org.dyson.dddstarter.order.model;
+package org.dyson.dddstarter.order;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.axonframework.modelling.command.EntityId;
 import org.dyson.core.model.NodeEntity;
 
 import java.math.BigDecimal;
@@ -17,7 +16,6 @@ import java.util.Objects;
 public class OrderItem extends NodeEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @EntityId
     private Long id;
     private Long productId;
     @ManyToOne

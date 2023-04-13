@@ -1,16 +1,16 @@
 axon:
   amqp:
     exchange: "events"
-  distributed:
-    load-factor: 100
-    jgroups:
-      bind-addr: 127.0.0.1
-      bind-port: 7800
-      cluster-name: DDD-Application
-      configuration-file: tcp_gossip.xml
-      gossip:
-        hosts: 127.0.0.1[7800],127.0.0.1[7801]
-        auto-start: true
+#  distributed:
+#    load-factor: 100
+#    jgroups:
+#      bind-addr: ${JGROUPS_BIND_ADDR:127.0.0.1}
+#      bind-port: ${JGROUPS_BIND_PORT:7800}
+#      cluster-name: DDD-Application
+#      configuration-file: ${JGROUPS_CONFIG_FILE:tcp_gossip.xml}
+#      gossip:
+#        hosts: ${GOSSIP_HOSTS:127.0.0.1[7800],127.0.0.1[7801]}
+#        auto-start: true
 spring:
   profiles:
     group:
@@ -25,8 +25,8 @@ spring:
     password: guest
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/fnb}
-    username: root
-    password: P@ssword789
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:P@ssword789}
   security:
     oauth2:
       client:
@@ -34,7 +34,7 @@ spring:
           keycloak:
             provider: ${KEYCLOAK_PROVIDER:keycloak}
             client-id: ${KEYCLOAK_CLIENT_ID:fnb}
-            client-secret: ${KEYCLOAK_CLIENT_SECRET:IKlnaeiLvnBypccc1SFoVbDW0TSq2ivr}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET:HCi6FzP4YM4OkBv8qFEwSYNWbNX91MKZ}
             authorization-grant-type: authorization_code
             redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
             scope:
@@ -42,17 +42,17 @@ spring:
               - email
         provider:
           keycloak:
-            issuer-uri: ${KEYCLOAK_ISSUER_URI:https://keycloak.tiktzuki.com/realms/fnb}
-            authorization-uri: ${KEYCLOAK_AUTHORIZATION_URI:https://keycloak.tiktzuki.com/realms/fnb/protocol/openid-connect/auth}
-            token-uri: ${KEYCLOAK_TOKEN_URI:https://keycloak.tiktzuki.com/realms/fnb/protocol/openid-connect/token}
-            jwk-set-uri: ${KEYCLOAK_JWT_SET_URI:https://keycloak.tiktzuki.com/realms/fnb/protocol/openid-connect/certs}
-            user-info-uri: ${KEYCLOAK_USERINFO_URI:https://keycloak.tiktzuki.com/realms/fnb/protocol/openid-connect/userinfo}
+            issuer-uri: ${KEYCLOAK_ISSUER_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb}
+            authorization-uri: ${KEYCLOAK_AUTHORIZATION_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb/protocol/openid-connect/auth}
+            token-uri: ${KEYCLOAK_TOKEN_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb/protocol/openid-connect/token}
+            jwk-set-uri: ${KEYCLOAK_JWT_SET_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb/protocol/openid-connect/certs}
+            user-info-uri: ${KEYCLOAK_USERINFO_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb/protocol/openid-connect/userinfo}
             user-info-authentication-method: header
             user-name-attribute: preferred_username
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_ISSUER_URI:https://keycloak.tiktzuki.com/realms/fnb}
-          jwk-set-uri: ${KEYCLOAK_JWT_SET_URI:https://keycloak.tiktzuki.com/realms/fnb/protocol/openid-connect/certs}
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb}
+          jwk-set-uri: ${KEYCLOAK_JWT_SET_URI:https://idp-dev.hcm.unicloud.ai/realms/fnb/protocol/openid-connect/certs}
 keycloak-client:
   username: ${KEYCLOAK_CLIENT_USERNAME:umeepay_admin}
   password: ${KEYCLOAK_CLIENT_PASSWORD:Aqswde123@@}

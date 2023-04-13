@@ -1,18 +1,15 @@
-package org.dyson.dddstarter.order.model;
+package org.dyson.dddstarter.order;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.axonframework.modelling.command.AggregateIdentifier;
-import org.axonframework.modelling.command.AggregateLifecycle;
-import org.axonframework.modelling.command.AggregateMember;
-import org.axonframework.spring.stereotype.Aggregate;
 import org.dyson.core.model.AggregateRoot;
 import org.dyson.dddstarter.product.model.Product;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +17,12 @@ import java.util.List;
 @Table(name = "ord")
 @Slf4j
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@org.axonframework.modelling.command.AggregateRoot
 public class Order extends AggregateRoot<Long> {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @AggregateIdentifier
     private Long id;
 
     private String shippingName;
@@ -36,15 +31,7 @@ public class Order extends AggregateRoot<Long> {
     private Price total;
 
     @OneToMany(mappedBy = "order")
-    @AggregateMember
     private List<OrderItem> items = new ArrayList<>();
-
-//    @CommandHandler
-//    public Order(CreateOrderCommand command, OrderRepository orderRepository) {
-//        log.debug("---> new order by command");
-//        orderRepository.save(this);
-//        ship();
-//    }
 
     public void recalculateTotals() {
         this.total = items.stream().map(OrderItem::getSubTotal).reduce(Price.ZERO, Price::add);
@@ -62,8 +49,7 @@ public class Order extends AggregateRoot<Long> {
 
     public void ship() {
         log.info("--> prepare ship");
-        OrderShipped orderShipped = new OrderShipped(this.getId(), Instant.now().getEpochSecond());
-        AggregateLifecycle.apply(orderShipped);
+        apply(new OrderShipped(null, null));
         log.info("--> shipped");
     }
 }

@@ -1,20 +1,30 @@
 package org.dyson.dddstarter.config;
 
 import lombok.RequiredArgsConstructor;
-import org.axonframework.extensions.amqp.AMQPProperties;
-import org.springframework.amqp.core.*;
-import org.springframework.context.annotation.Bean;
+import lombok.extern.slf4j.Slf4j;
+import org.axonframework.eventhandling.gateway.EventGateway;
+import org.dyson.core.model.DomainEvent;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class EventProducer {
-    private final AMQPProperties amqpProperties;
+    private final EventGateway eventGateway;
 
-    @Bean
-    public TopicExchange eventExchange() {
-        return new TopicExchange(amqpProperties.getExchange());
+    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+    public void onDomainEvent(DomainEvent e) {
+        eventGateway.publish(e);
+        log.debug("event gateway pushed {}", e);
     }
+//    private final AMQPProperties amqpProperties;
+//
+//    @Bean
+//    public TopicExchange eventExchange() {
+//        return new TopicExchange(amqpProperties.getExchange());
+//    }
 
 //    @Bean
 //    public Queue queue() {

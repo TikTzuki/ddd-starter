@@ -64,7 +64,7 @@ subprojects {
         implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
 
         implementation "org.axonframework:axon-spring-boot-autoconfigure:$axonVersion"
-        implementation "org.axonframework.extensions.jgroups:axon-jgroups-spring-boot-starter:${axonVersion}"
+//        implementation "org.axonframework.extensions.jgroups:axon-jgroups-spring-boot-starter:${axonVersion}"
         implementation "org.axonframework.extensions.amqp:axon-amqp-spring-boot-starter:${axonVersion}"
 
         compileOnly "org.projectlombok:lombok:${lombokVersion}"

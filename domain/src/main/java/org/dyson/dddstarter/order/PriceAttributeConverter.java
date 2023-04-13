@@ -1,4 +1,4 @@
-package org.dyson.dddstarter.order.model;
+package org.dyson.dddstarter.order;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

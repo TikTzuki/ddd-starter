@@ -1,4 +1,4 @@
-package org.dyson.dddstarter.order.model;
+package org.dyson.dddstarter.order;
 
 import lombok.Data;
 import org.dyson.core.model.DomainEvent;

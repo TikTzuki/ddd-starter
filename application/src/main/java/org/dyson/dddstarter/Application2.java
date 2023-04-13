@@ -13,9 +13,9 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 @Slf4j
 @EnableAsync
-public class Application implements CommandLineRunner {
+public class Application2 implements CommandLineRunner {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(Application2.class, args);
     }
 
     @PostConstruct

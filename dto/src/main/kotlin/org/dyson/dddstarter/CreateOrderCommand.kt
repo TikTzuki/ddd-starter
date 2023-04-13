@@ -1,14 +1,24 @@
 package org.dyson.dddstarter
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.math.BigDecimal
 
 data class CreateOrderCommand(
+    val shippingName: String? = null,
+    val billingName: String? = null,
+    val nextFreeItemId: Long? = null,
+    val items: List<OrderItemDto> = ArrayList(),
+)
+
+data class UpdateOrderCommand(
     var orderId: Long? = null,
     val shippingName: String? = null,
     val billingName: String? = null,
     val nextFreeItemId: Long? = null,
     val items: List<OrderItemDto> = ArrayList(),
+)
+
+data class DeleteOrderCommand(
+    var id: Long? = null
 )
 
 data class OrderItemDto(
