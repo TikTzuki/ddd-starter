@@ -18,13 +18,13 @@ import org.springframework.transaction.event.TransactionalEventListener;
 public class InvoiceListener {
     private final InvoiceRepository invoiceRepository;
 
-    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+//    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+    @EventHandler
     public void onOrderShipped(OrderShipped event) {
         log.info("--> invoice received event: {}", event);
         Invoice invoice = new Invoice();
         invoice.setDescription("--> invoice created");
         invoiceRepository.save(invoice);
         log.info("--> invoice saved {}", invoice.getId());
-        throw new RuntimeException("zzz");
     }
 }

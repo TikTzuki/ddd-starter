@@ -4,11 +4,20 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.eventsourcing.AggregateFactory;
+import org.axonframework.eventsourcing.GenericAggregateFactory;
+import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.modelling.command.CommandHandlerInterceptor;
+import org.axonframework.spring.eventsourcing.SpringPrototypeAggregateFactory;
 import org.dyson.core.dto.DataResponse;
 import org.dyson.dddstarter.CreateOrderCommand;
 import org.dyson.dddstarter.controller.OrderController;
+import org.dyson.dddstarter.order.model.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +30,7 @@ public class OrderControllerImpl implements OrderController {
     private final CommandGateway commandGateway;
 
     @Override
-    public ResponseEntity<Object> createOrder(CreateOrderCommand createOrderCommand) {
+    public ResponseEntity<Object> createOrder( CreateOrderCommand createOrderCommand) {
         var id = commandGateway.sendAndWait(createOrderCommand);
         return new ResponseEntity<>(new DataResponse<>(id), HttpStatus.CREATED);
     }

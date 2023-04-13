@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.dyson.core.model.AggregateRoot;
@@ -18,10 +19,10 @@ import java.util.List;
 @Entity
 @Table(name = "ord")
 @Slf4j
-@Aggregate
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@org.axonframework.modelling.command.AggregateRoot
 public class Order extends AggregateRoot<Long> {
 
     @Id
@@ -61,8 +62,8 @@ public class Order extends AggregateRoot<Long> {
 
     public void ship() {
         log.info("--> prepare ship");
-        apply(new OrderShipped(this.getId(), Instant.now().getEpochSecond()));
-//        apply(new OrderShipped(this.getId(), Instant.now().getEpochSecond()));
+        OrderShipped orderShipped = new OrderShipped(this.getId(), Instant.now().getEpochSecond());
+        AggregateLifecycle.apply(orderShipped);
         log.info("--> shipped");
     }
 }

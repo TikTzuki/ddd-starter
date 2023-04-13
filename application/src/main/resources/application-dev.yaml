@@ -1,10 +1,10 @@
 logging:
   level:
     com.zaxxer:
-      hikari: debug
       hikari.HikariConfig: debug
     org.axonframework: debug
     org.springframework.security: debug
+    org.jgroups: debug
     org.dyson.dddstarter: debug
 spring:
   jpa:

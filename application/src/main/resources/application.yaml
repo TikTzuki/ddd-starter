@@ -4,12 +4,12 @@ axon:
   distributed:
     load-factor: 100
     jgroups:
-      bind-addr: GLOBAL
+      bind-addr: 127.0.0.1
       bind-port: 7800
       cluster-name: DDD-Application
       configuration-file: tcp_gossip.xml
       gossip:
-        hosts: 192.168.1.5[7800],192.168.1.5[7801]
+        hosts: 127.0.0.1[7800],127.0.0.1[7801]
         auto-start: true
 spring:
   profiles:
