@@ -13,9 +13,8 @@ ___
     6. [Aggregates](#aggregates)
     7. [Factories](#factories)
     8. [Repositories](#repositories)
-
-2. [Refactoring Toward Deeper Insight](#fourth-examplehttpwwwfourthexamplecom)
-3. [Preserving Model Integrity](#fourth-examplehttpwwwfourthexamplecom)
+    9. [Exception handling](#exception-handling)
+2. [Event-Driven Design](#2-event-drivent-design)
 
 ## 1. Model-Driven Design
 
@@ -38,13 +37,9 @@ Mô hình hóa tất cả các method thay đổi state của entity dưới d�
 class Employee {
     String endDate;
    
-   ❌
-
-    setEndDate(finalDay);
+   ❌ setEndDate(finalDay);
    
-   ✅
-
-    terminateContract(reason, finalDay);
+   ✅ terminateContract(reason, finalDay);
 }
 ```
 
@@ -107,21 +102,18 @@ public class Person {
 
 ### iii. Value Objects
 
-❓ Một value object là một đối tượng chứa value. Nếu hai value object có cùng giá trị các properties được coi là một.
+Một value object là một đối tượng chứa value. Nếu hai value object có cùng giá trị các properties được coi là một.
 . Đối với các value object phức tạp, hãy sử dụng `Builder Pattern`.
 
 - Immutable, shareable, thin & simple.
 - Thread safe, xử lý concurrency
 - Cho phép entity tập trung trung vào định danh, chuyển trách nhiệm thực hiện business logic cho value object.
 
-✅
-
 - Tên của value object đại diện cho các business logic.
 - Triển khai Value Objects đơn giản bằng `Hibernate's UserType, @TypeDef` hoặc `Attribute Converter`
 - Triển khai Value Objects phức tạp bằng `@Embeddables`
 
-❌
-
+Không nên
 - Value object không phải DTO , DTO là kỹ thuật truyền dữ liệu,
 - Không thay đổi trạng thái của value object mà nên tạo ra 1 instance mới.
 
@@ -165,13 +157,11 @@ public class Invoice extends BaseAggregateRoot<InvoiceId> { // <1>
 
 ### v. Services
 
-❓ Thuộc về domain, có hành vi tham chiếu đến các đối tượng khác trong miền, bản thân không có trạng thái.
+Thuộc về domain, có hành vi tham chiếu đến các đối tượng khác trong miền, bản thân không có trạng thái.
 
-✅ Thể hiện nghiệp vụ chứa tương tác giữa các aggregate với nhau.
+Thể hiện nghiệp vụ chứa tương tác giữa các aggregate với nhau.
 
 ### vi. Modules
-
-✅
 
 ```
 foo.bar.domain.model.authentication
@@ -188,47 +178,48 @@ foo.bar.domain.model.role
     RoleId
 ```
 
-❌
-
-```
-foo.bar.domain.model.services
-    AuthenticationService
-    PasswordEncoder
-foo.bar.domain.model.repositories
-    UserRepository
-    RoleRepository
-foo.bar.domain.model.entities
-    User
-    Role
-foo.bar.domain.model.valueobjects
-    UserId
-    RoleId
-    UserName
-```
 
 ### vii. Factories
 
 ![FactoryMethod.png](https://bnz07pap001files.storage.live.com/y4mKrAwwzhF9O_cm6Ho93zg9RYqgNIULyY-ih3nGpBBDmIeAZn23MutQY0RgXjzppE-S7YHDghSAys8Q3s78Xp2EC7nKR2eq7Qv3pzEE9rO_fW8chXErX13mbTgWKe_uhbhUqYdzjvzKJE8LSL2sZSf5qGqO9XV8JZQizD5llkRaW0nd-Mp5BUn1NE6hMEaI-td?width=742&height=421&cropmode=none)
 
-❓ Khi các entity và aggregate quá phức tạo để tạo một instance thông qua constructor thì cần sử dụng factory pattern.
+Khi các entity và aggregate quá phức tạo để tạo một instance thông qua constructor thì cần sử dụng factory pattern.
 
-✅ Đóng gói logic nghiệp vụ nằm trong lớp domain.
+Facory đóng gói logic nghiệp vụ nằm trong lớp domain.
 
 ### viii. Repositories
 
-❌ Sử dụng repository nhằm gói gọn tất cả logic cần thiết để lấy các reference đến các domain object.
+Sử dụng repository nhằm gói gọn tất cả logic cần thiết để lấy các reference đến các domain object.
+
 Các domain object sẽ không phải xử lý logic infrastructure mà sẽ chỉ lấy chúng từ repository và model sẽ đạt được sự rõ
 ràng và tập trung vào nghiệp vụ.
 
-✅
-
-- Để viết các sql phức tạp, sử dụng `Specifications` hoặc `QueryDSL`
+Để viết các sql phức tạp, sử dụng `Specifications` hoặc `QueryDSL`
 
 Sử dụng kết hợp Factory và Repository
 
 ![FactoryAndRepository.png](https://bnz07pap001files.storage.live.com/y4mr3Sa7FiVwxqCUDarzn-qiCx17I1iU1xHi76jxwyC7_DYb7ClCYG48-tU5qUdoiyKn0z_YOewbhZyKnHpbg8MC-uBDuXlQ-Gv3Jzal60nujWEvwm2M1PwS3PdiJHjZuHokRUFa2zkl0mbgGekWhQ3oWqR-AGSTbPclCzcPU10T7xP8LZ9y8oIIbDzsZwjVnwk?width=1214&height=879&cropmode=none)
 
+### ix. Exception handling
+- Không tập trung khai báo exception ở 1 nơi, không kế thừa exception.
+- Sử dụng asserts/check để ràng buộc dữ liệu đầu vào.
+- Handle exception ở lớp application/adapter.
+- Sử dụng RuntimeException cho các ngoại lệ không đoán trước thay vì custom exceptions.
+- Trong domain không lưu error code/message trong exception.
+- Thêm custom exception vừa đủ để sử dụng và chỉ khi mang lại lợi ích nhiều hơn Java's standard exception.
 ___
+
+## 2. Event-Drivent Design
+
+### 2.1 Event appling
+
+### 2.2 Event handling
+
+@EventHandler
+
+@EventListener
+
+@TransactionalEventListener
 
 ## References
 

@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts-alpine-jdk17
 
 USER root
 
-ARG APP_NAME="ddd-starter"
+ARG APP_NAME="fnb"
 
 ARG APP_VERSION="0.0.1-SNAPSHOT"
 

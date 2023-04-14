@@ -27,7 +27,7 @@ allprojects {
 
 }
 bootJar {
-    setMainClass("org.dyson.dddstarter.Application")
+    setMainClass("vn.unicloud.fnb.Application")
 }
 
 
@@ -63,8 +63,11 @@ subprojects {
         implementation "io.github.microutils:kotlin-logging-jvm:2.0.11"
         implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
 
+        implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
+            exclude group: 'org.axonframework', module: 'axon-server-connector'
+        }
+
         implementation "org.axonframework:axon-spring-boot-autoconfigure:$axonVersion"
-//        implementation "org.axonframework.extensions.jgroups:axon-jgroups-spring-boot-starter:${axonVersion}"
         implementation "org.axonframework.extensions.amqp:axon-amqp-spring-boot-starter:${axonVersion}"
 
         compileOnly "org.projectlombok:lombok:${lombokVersion}"

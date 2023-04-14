@@ -1,16 +1,11 @@
 axon:
   amqp:
-    exchange: "events"
-#  distributed:
-#    load-factor: 100
-#    jgroups:
-#      bind-addr: ${JGROUPS_BIND_ADDR:127.0.0.1}
-#      bind-port: ${JGROUPS_BIND_PORT:7800}
-#      cluster-name: DDD-Application
-#      configuration-file: ${JGROUPS_CONFIG_FILE:tcp_gossip.xml}
-#      gossip:
-#        hosts: ${GOSSIP_HOSTS:127.0.0.1[7800],127.0.0.1[7801]}
-#        auto-start: true
+    exchange: exchange
+  eventhandling:
+    processors:
+      amqpEvents:
+        source: amqpMessageSource
+        mode: subscribing
 spring:
   profiles:
     group:

@@ -5,7 +5,7 @@ logging:
     org.axonframework: debug
     org.springframework.security: debug
     org.jgroups: debug
-    org.dyson.dddstarter: debug
+    vn.unicloud.fnb: debug
 spring:
   jpa:
     hibernate:
