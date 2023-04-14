@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.springframework.stereotype.Component;
 import vn.unicloud.fnb.invoice.model.Invoice;
 import vn.unicloud.fnb.invoice.model.InvoiceRepository;
 import vn.unicloud.fnb.order.OrderShipped;
-import org.springframework.stereotype.Component;
 
 
 @Slf4j

@@ -14,13 +14,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import vn.unicloud.fnb.dto.*;
 import vn.unicloud.fnb.controller.CategoryController;
+import vn.unicloud.fnb.dto.*;
+import vn.unicloud.fnb.product.CategorySpec;
 
 import java.beans.ConstructorProperties;
 import java.lang.reflect.Type;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Slf4j
@@ -33,10 +32,11 @@ public class CategoryControllerImpl implements CategoryController {
 
     @SneakyThrows
     @Override
-    public ResponseEntity<Object> get(Optional<Long> id, Pageable pageable) {
-        Page<CategoryDto> categories = queryGateway.query(new CategoryQuery(id, pageable), responseType).get();
+    public ResponseEntity<Object> get(CategorySpec specification, Pageable pageable) {
+        Page<CategoryDto> categories = queryGateway.query(new CategoryQuery<>(specification, pageable), responseType).get();
         return ResponseEntity.ok(categories);
     }
+
 
     @Override
     public ResponseEntity<Object> create(CreateCategoryCommand command) {
@@ -54,6 +54,7 @@ public class CategoryControllerImpl implements CategoryController {
         return ResponseEntity.noContent().build();
     }
 }
+
 class PageResponseType<R> extends AbstractResponseType<Page<R>> {
 
 

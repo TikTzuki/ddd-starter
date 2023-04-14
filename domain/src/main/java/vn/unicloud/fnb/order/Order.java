@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="torder")
+@Table(name = "torder")
 @Slf4j
 @Data
 @EqualsAndHashCode(callSuper = true)

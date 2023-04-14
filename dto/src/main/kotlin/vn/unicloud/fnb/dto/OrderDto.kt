@@ -2,7 +2,7 @@ package vn.unicloud.fnb.dto
 
 import org.springframework.data.domain.Pageable
 import java.math.BigDecimal
-import java.util.Optional
+import java.util.*
 
 data class OrderQuery(
     val orderId: Optional<Long>,
@@ -14,9 +14,9 @@ data class CreateOrderCommand(
     val billingName: String? = null,
     val nextFreeItemId: Long? = null,
     val items: List<OrderItemDto> = ArrayList(),
-){
-    companion object{
-        fun newInstance(): CreateOrderCommand?{
+) {
+    companion object {
+        fun newInstance(): CreateOrderCommand? {
             return null;
         }
     }

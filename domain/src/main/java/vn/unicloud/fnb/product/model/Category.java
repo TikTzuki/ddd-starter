@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dyson.core.model.AggregateRoot;
-import vn.unicloud.fnb.constant.Sequences;
 
 @Entity
 @Table

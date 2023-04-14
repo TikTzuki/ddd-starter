@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dyson.core.model.AggregateRoot;
-import vn.unicloud.fnb.constant.Sequences;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import vn.unicloud.fnb.constant.Sequences;
 
 import java.util.List;
 

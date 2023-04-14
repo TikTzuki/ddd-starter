@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.axonframework.extensions.amqp.AMQPProperties;
 import org.axonframework.extensions.amqp.eventhandling.AMQPMessageConverter;
 import org.axonframework.extensions.amqp.eventhandling.spring.SpringAMQPMessageSource;
-import org.axonframework.springboot.EventProcessorProperties;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class AxonConfig {
     public static final String QUEUE_NAME = "dddQueue";
     private final AMQPProperties amqpProperties;
+
     /**
      * The SpringAMQPMessageSource allows event processors to read messages from a queue instead of the event store or
      * event bus. It acts as an adapter between Spring AMQP and the SubscribableMessageSource needed by these processors.
@@ -46,8 +46,8 @@ public class AxonConfig {
     @Bean
     Binding eventsBinding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue)
-                .to(exchange)
-                .with("#");
+            .to(exchange)
+            .with("#");
     }
 
 }

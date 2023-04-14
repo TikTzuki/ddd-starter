@@ -5,11 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
 import org.dyson.core.dto.DataResponse;
-import vn.unicloud.fnb.controller.OrderController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import vn.unicloud.fnb.controller.OrderController;
 import vn.unicloud.fnb.dto.*;
 
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class OrderControllerImpl implements OrderController {
 
     @Override
     public ResponseEntity<Object> get(Optional<Long> id, Pageable pageable) {
-        OrderQuery query= new OrderQuery(id, pageable);
+        OrderQuery query = new OrderQuery(id, pageable);
         var rs = queryGateway.query(query, OrderDto.class);
         log.info(rs.toString());
         return null;

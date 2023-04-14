@@ -16,21 +16,22 @@ public class OpenApiConfig {
         final String securitySchemeName = "bearerAuth";
         final String apiKey = "apiKey";
         return new OpenAPI()
-                .security(List.of(
-                        new SecurityRequirement().addList(securitySchemeName),
-                        new SecurityRequirement().addList(apiKey)
-                ))
-                .components(new Components()
-                        .addSecuritySchemes(securitySchemeName, new SecurityScheme()
-                                .name(securitySchemeName)
-                                .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
-                                .bearerFormat("JWT"))
-                        .addSecuritySchemes(apiKey, new SecurityScheme()
-                                .name(apiKey)
-                                .type(SecurityScheme.Type.APIKEY)
-                                .in(SecurityScheme.In.HEADER)
-                        )
-                );
+            .security(List.of(
+                new SecurityRequirement().addList(securitySchemeName),
+                new SecurityRequirement().addList(apiKey)
+            ))
+            .components(new Components()
+                .addSecuritySchemes(securitySchemeName, new SecurityScheme()
+                    .name(securitySchemeName)
+                    .type(SecurityScheme.Type.HTTP)
+                    .scheme("bearer")
+                    .bearerFormat("JWT"))
+                .addSecuritySchemes(apiKey, new SecurityScheme()
+                    .name(apiKey)
+                    .type(SecurityScheme.Type.APIKEY)
+                    .in(SecurityScheme.In.HEADER)
+                )
+            );
     }
+
 }

@@ -114,6 +114,7 @@ Một value object là một đối tượng chứa value. Nếu hai value objec
 - Triển khai Value Objects phức tạp bằng `@Embeddables`
 
 Không nên
+
 - Value object không phải DTO , DTO là kỹ thuật truyền dữ liệu,
 - Không thay đổi trạng thái của value object mà nên tạo ra 1 instance mới.
 
@@ -178,7 +179,6 @@ foo.bar.domain.model.role
     RoleId
 ```
 
-
 ### vii. Factories
 
 ![FactoryMethod.png](https://bnz07pap001files.storage.live.com/y4mKrAwwzhF9O_cm6Ho93zg9RYqgNIULyY-ih3nGpBBDmIeAZn23MutQY0RgXjzppE-S7YHDghSAys8Q3s78Xp2EC7nKR2eq7Qv3pzEE9rO_fW8chXErX13mbTgWKe_uhbhUqYdzjvzKJE8LSL2sZSf5qGqO9XV8JZQizD5llkRaW0nd-Mp5BUn1NE6hMEaI-td?width=742&height=421&cropmode=none)
@@ -201,12 +201,14 @@ Sử dụng kết hợp Factory và Repository
 ![FactoryAndRepository.png](https://bnz07pap001files.storage.live.com/y4mr3Sa7FiVwxqCUDarzn-qiCx17I1iU1xHi76jxwyC7_DYb7ClCYG48-tU5qUdoiyKn0z_YOewbhZyKnHpbg8MC-uBDuXlQ-Gv3Jzal60nujWEvwm2M1PwS3PdiJHjZuHokRUFa2zkl0mbgGekWhQ3oWqR-AGSTbPclCzcPU10T7xP8LZ9y8oIIbDzsZwjVnwk?width=1214&height=879&cropmode=none)
 
 ### ix. Exception handling
+
 - Không tập trung khai báo exception ở 1 nơi, không kế thừa exception.
 - Sử dụng asserts/check để ràng buộc dữ liệu đầu vào.
 - Handle exception ở lớp application/adapter.
 - Sử dụng RuntimeException cho các ngoại lệ không đoán trước thay vì custom exceptions.
 - Trong domain không lưu error code/message trong exception.
 - Thêm custom exception vừa đủ để sử dụng và chỉ khi mang lại lợi ích nhiều hơn Java's standard exception.
+
 ___
 
 ## 2. Event-Drivent Design

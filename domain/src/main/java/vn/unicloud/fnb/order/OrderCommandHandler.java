@@ -2,7 +2,8 @@ package vn.unicloud.fnb.order;
 
 import org.axonframework.commandhandling.CommandHandler;
 import org.springframework.stereotype.Component;
-import vn.unicloud.fnb.dto.*;
+import vn.unicloud.fnb.dto.DeleteOrderCommand;
+import vn.unicloud.fnb.dto.UpdateOrderCommand;
 
 @Component
 public class OrderCommandHandler {
