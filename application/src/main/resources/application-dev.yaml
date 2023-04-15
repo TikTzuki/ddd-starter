@@ -1,13 +1,21 @@
 logging:
   level:
-    com.zaxxer:
-      hikari.HikariConfig: debug
-    org.axonframework: debug
-    org.springframework.security: debug
-    org.jgroups: debug
-    vn.unicloud.fnb: debug
+    com:
+      zaxxer.hikari.HikariConfig: debug
+    org:
+      axonframework: debug
+      springframework:
+        security: debug
+        transaction: debug
+      hibernate:
+        SQL: info
+    vn:
+      unicloud.fnb: debug
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
-#    show-sql: true
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

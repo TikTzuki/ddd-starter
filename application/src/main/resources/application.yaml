@@ -9,10 +9,10 @@ axon:
 spring:
   profiles:
     group:
-      default: default, base
-      dev: dev, base
-      uat: uat, base
-      prod: prod, base
+      default-group: base, default
+      dev-group: base, dev
+      uat-group: base, uat
+      prod-group: base, prod
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
@@ -22,6 +22,11 @@ spring:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/fnb}
     username: ${DATABASE_USER:postgres}
     password: ${DATABASE_PASSWORD:P@ssword789}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:P@ssword789}
   security:
     oauth2:
       client:

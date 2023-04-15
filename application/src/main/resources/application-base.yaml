@@ -19,7 +19,7 @@ spring:
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
       minimum-idle: 3
-      maximum-pool-size: 100
+      maximum-pool-size: 24
   jpa:
     properties:
       hibernate:
@@ -35,7 +35,7 @@ spring:
 springdoc:
   api-docs:
     path: /api-docs
-  show-actuator: true
+  show-actuator: false
 management:
   endpoints:
     web:

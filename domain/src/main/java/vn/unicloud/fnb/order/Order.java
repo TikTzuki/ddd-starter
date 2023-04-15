@@ -6,9 +6,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.modelling.command.AggregateLifecycle;
+import org.axonframework.spring.stereotype.Aggregate;
 import org.dyson.core.model.AggregateRoot;
+import vn.unicloud.fnb.dto.CreateOrderCommand;
 import vn.unicloud.fnb.product.model.Product;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +25,12 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Aggregate
+@org.axonframework.modelling.command.AggregateRoot
 public class Order extends AggregateRoot<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @AggregateIdentifier
     private Long id;
 
     private String shippingName;
@@ -31,6 +40,13 @@ public class Order extends AggregateRoot<Long> {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items = new ArrayList<>();
+
+    @CommandHandler
+    public Order(CreateOrderCommand createOrderCommand, OrderRepository orderRepository) {
+        log.debug(this.toString());
+        ship();
+        orderRepository.save(this);
+    }
 
     public void recalculateTotals() {
         this.total = items.stream().map(OrderItem::getSubTotal).reduce(Price.ZERO, Price::add);
@@ -48,7 +64,7 @@ public class Order extends AggregateRoot<Long> {
 
     public void ship() {
         log.info("--> prepare ship");
-        apply(new OrderShipped(null, null));
+        AggregateLifecycle.apply(new OrderShipped(this.id, Instant.now().getEpochSecond()));
         log.info("--> shipped");
     }
 }

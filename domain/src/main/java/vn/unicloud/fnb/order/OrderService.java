@@ -1,7 +1,7 @@
 package vn.unicloud.fnb.order;
 
 import lombok.RequiredArgsConstructor;
-import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.eventhandling.gateway.EventGateway;
 import org.springframework.stereotype.Service;
 import vn.unicloud.fnb.dto.CreateOrderCommand;
 
@@ -10,11 +10,13 @@ import vn.unicloud.fnb.dto.CreateOrderCommand;
 public class OrderService {
     private final OrderFactory orderFactory;
     private final OrderRepository orderRepository;
+    private final EventGateway eventGateway;
 
-    @CommandHandler
-    public void createOder(CreateOrderCommand command) {
+    //    @CommandHandler
+    public Long createOder(CreateOrderCommand command) {
         Order order = orderFactory.createOrder();
         order.ship();
         orderRepository.save(order);
+        return order.getId();
     }
 }

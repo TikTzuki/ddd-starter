@@ -31,8 +31,9 @@ public class OrderControllerImpl implements OrderController {
 
     @Override
     public ResponseEntity<Object> create(CreateOrderCommand command) {
-        commandGateway.sendAndWait(command);
-        return new ResponseEntity<>(new DataResponse<>(null), HttpStatus.CREATED);
+        Object id = commandGateway.sendAndWait(command);
+        log.debug("create order: {}", id);
+        return new ResponseEntity<>(new DataResponse<>(id), HttpStatus.CREATED);
     }
 
     @Override
