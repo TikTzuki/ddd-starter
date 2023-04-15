@@ -7,7 +7,7 @@ plugins {
     id 'io.freefair.lombok' version '5.3.0'
 }
 
-group = 'org.dyson'
+group = 'vn.unicloud'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_17
 
@@ -18,34 +18,41 @@ ext {
     keycloakVersion = "19.0.3"
     openapiVersion = "2.1.0"
     specArgVersion = "3.0.0"
+    springCloudVersion = "2022.0.2"
+    zxingVersion = "3.5.1"
+    temporalVersion = "1.19.1"
 }
 
 
 allprojects {
     repositories {
         mavenCentral()
+        mavenLocal()
     }
-
 }
-bootJar {
-    setMainClass("vn.unicloud.fnb.Application")
-}
-
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.jetbrains.kotlin.jvm'
-    bootJar { enabled = false }
+//    bootJar { enabled = false }
     dependencies {
+        implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
+            exclude group: 'org.axonframework', module: 'axon-server-connector'
+        }
+
+        implementation "org.axonframework:axon-spring-boot-autoconfigure:$axonVersion"
+        implementation "org.axonframework.extensions.amqp:axon-amqp-spring-boot-starter:${axonVersion}"
         implementation "com.vladmihalcea:hibernate-types-60:2.21.1"
+
         implementation "io.temporal:temporal-sdk:1.19.1"
 
         implementation "org.springframework.boot:spring-boot-starter-actuator"
         implementation "org.springframework.boot:spring-boot-starter-amqp"
         implementation "org.springframework.boot:spring-boot-starter-data-jpa"
         implementation "net.kaczmarzyk:specification-arg-resolver:${specArgVersion}"
+        implementation "org.springframework.boot:spring-boot-starter-data-redis"
 
         implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
         implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
@@ -56,21 +63,21 @@ subprojects {
         implementation "org.springframework.boot:spring-boot-starter-web"
         implementation "org.springframework.boot:spring-boot-starter-webflux"
         implementation "org.springframework.boot:spring-boot-starter-websocket"
+        // Workflow - Orchestrator
+        implementation "io.temporal:temporal-sdk:${temporalVersion}"
         // Tracing
 //        implementation "io.micrometer:micrometer-tracing-bridge-brave"
 //        implementation "io.zipkin.reporter2:zipkin-reporter-brave"
+        // API documentation
         implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$openapiVersion"
+        // QR codegen
+        implementation "com.google.zxing:core:${zxingVersion}"
+        implementation "com.google.zxing:javase:${zxingVersion}"
+        // Other
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
         implementation "org.jetbrains.kotlin:kotlin-reflect"
         implementation "io.github.microutils:kotlin-logging-jvm:2.0.11"
         implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
-
-        implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
-            exclude group: 'org.axonframework', module: 'axon-server-connector'
-        }
-
-        implementation "org.axonframework:axon-spring-boot-autoconfigure:$axonVersion"
-        implementation "org.axonframework.extensions.amqp:axon-amqp-spring-boot-starter:${axonVersion}"
 
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
@@ -98,6 +105,13 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+}
+
+bootJar {
+    layered {
+        includeLayerTools = true
+    }
+    setMainClass("vn.unicloud.fnb.Application")
 }
 
 test {
