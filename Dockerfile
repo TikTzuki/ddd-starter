@@ -17,7 +17,3 @@ ENV SYS_PROPS=""
 ENV LOGS="./logs"
 
 RUN mkdir -p ${LOGS}
-
-ENTRYPOINT java -jar ${SYS_PROPS} app.jar ${JAR_ARGS}
-
-EXPOSE 8080

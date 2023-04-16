@@ -9,6 +9,7 @@ data class OrderQuery(
     val pageable: Pageable
 )
 
+
 data class CreateOrderCommand(
     val shippingName: String? = null,
     val billingName: String? = null,

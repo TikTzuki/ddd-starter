@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.dyson.core.model.AggregateRoot;
 import vn.unicloud.fnb.constant.Sequences;
-import vn.unicloud.fnb.menu.model.MenuProductId;
+import vn.unicloud.fnb.product.menu.MenuProductId;
 
 import java.util.List;
 
