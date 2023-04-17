@@ -2,12 +2,15 @@ package vn.unicloud.fnb.application.configuration;
 
 import com.rabbitmq.client.Channel;
 import lombok.RequiredArgsConstructor;
+import org.axonframework.common.jpa.EntityManagerProvider;
+import org.axonframework.eventhandling.EventBus;
 import org.axonframework.extensions.amqp.eventhandling.AMQPMessageConverter;
 import org.axonframework.extensions.amqp.eventhandling.spring.SpringAMQPMessageSource;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import vn.unicloud.fnb.domain.order.invoice.Invoice;
 
 @Configuration
 @RequiredArgsConstructor
@@ -30,7 +33,5 @@ public class AxonConfig {
 
         };
     }
-
-
 
 }

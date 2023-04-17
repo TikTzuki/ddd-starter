@@ -11,6 +11,8 @@ import vn.unicloud.fnb.dto.DeleteCategoryCommand;
 import vn.unicloud.fnb.dto.UpdateCategoryCommand;
 import vn.unicloud.fnb.domain.product.category.CategorySpec;
 
+import java.util.concurrent.ExecutionException;
+
 
 @RequestMapping("/api/1.0/categories")
 @Tags(@Tag(name = "Category"))
@@ -24,7 +26,7 @@ public interface CategoryController {
     ResponseEntity<Object> get(
             CategorySpec specification,
             Pageable pageable
-    );
+    ) throws ExecutionException, InterruptedException;
 
     @Operation(
             summary = ""
