@@ -11,25 +11,22 @@ import vn.unicloud.fnb.dto.UpdateOrderCommand;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-@RequestMapping("/orders")
+@RequestMapping("/api/1.0/orders")
 public interface OrderController {
 
     @Operation(
-        tags = {"Order"},
         summary = "Lấy đơn hàng"
     )
     @GetMapping({"/{id}"})
     ResponseEntity<Object> get(@PathVariable Optional<Long> id, @ParameterObject Pageable pageable) throws ExecutionException, InterruptedException;
 
     @Operation(
-        tags = {"Order"},
         summary = "Tạo đơn hàng"
     )
     @PostMapping
     ResponseEntity<Object> create(@RequestBody CreateOrderCommand command);
 
     @Operation(
-        tags = {"Order"},
         summary = "Cập nhật đơn hàng"
     )
     @PutMapping
@@ -37,7 +34,6 @@ public interface OrderController {
 
 
     @Operation(
-        tags = {"Order"},
         summary = "Xóa đơn hàng"
     )
     @DeleteMapping("/{id}")

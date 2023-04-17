@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import vn.unicloud.fnb.application.controller.CategoryController;
 import vn.unicloud.fnb.dto.*;
-import vn.unicloud.fnb.product.category.CategorySpec;
+import vn.unicloud.fnb.domain.product.category.CategorySpec;
 
 import java.beans.ConstructorProperties;
 import java.lang.reflect.Type;
